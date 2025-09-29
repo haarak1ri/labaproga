@@ -1,36 +1,32 @@
-#ifndef MYSTRING_H
-#define MYSTRING_H
+#pragma once
 
-#include <cstddef>
+//#include <cstddef>
 #include <iostream>
 
-class MyString {
-private:
-    char* data;            // указатель на динамически выделенную строку
-    std::size_t length;    // длина строки
-    static int objectCount; // статический член
+using namespace std;
 
+class MyString {
 public:
     // === Конструкторы и деструктор ===
-    MyString();                          // конструктор по умолчанию
-    MyString(const char* s);             // конструктор с параметром
-    MyString(const MyString& other);     // конструктор копирования
-    MyString& operator=(const MyString& other); // оператор присваивания
-    ~MyString();                         // деструктор
+    MyString();                               // конструктор по умолчанию
+    MyString(const char* str);                // конструктор с параметром
+    MyString(const MyString& otherStr);       // конструктор копирования
+    MyString& operator=(const MyString& otherStr); // оператор присваивания
+    ~MyString();                              // деструктор
 
     // === Методы ===
-    void setString(const char* s);         // изменение строки
-    char* c_str() const;                   // вернуть C-строку (char*)
-    char* getCopy() const;                 // вернуть копию строки
-    MyString concat(const MyString& other) const; // объединение строк
-    int find(const char* substr) const;    // поиск подстроки
-    std::size_t size() const;              // длина строки
+    void setString(const char* str);              // изменение строки
+    char* c_str() const;                          // вернуть C-строку
+    char* getCopy() const;                        // вернуть копию строки
+    MyString concat(const MyString& otherStr) const; // объединение строк
+    int find(const char* substr) const;           // поиск подстроки
+    size_t size() const;                          // длина строки
 
     // === Статические методы ===
     static int getObjectCount();
 
-    // === Перегрузка операторов ===
-    friend std::ostream& operator<<(std::ostream& os, const MyString& str);
+private:
+    char* data;           // указатель на строку
+    size_t length;        // длина строки
+    static int object_count; // статический счётчик объектов
 };
-
-#endif

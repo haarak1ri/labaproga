@@ -1,36 +1,30 @@
 #include "MyString.h"
 #include <iostream>
 
-// Демонстрация работы конструктора и деструктора
-void demoScope() {
-    MyString local("local");
-    std::cout << "Inside demoScope: " << local << "\n";
-}
+using namespace std;
 
 int main() {
     // Конструктор с параметром
-    MyString s1("Hello");
+    //MyString s1("English is");
 
     // Конструктор по умолчанию + изменение строки
-    MyString s2;
-    s2.setString(", world!");
+   // MyString s2;
+    //s2.setString(" the best language");
 
     // Объединение строк
-    MyString s3 = s1.concat(s2);
+    //MyString s3 = s1.concat(s2);
 
-    // Вывод объектов через перегруженный оператор <<
-    std::cout << "s1: " << s1 << "\n";
-    std::cout << "s2: " << s2 << "\n";
-    std::cout << "s3: " << s3 << "\n";
+    // Вывод через c_str()
+    //cout << "s1: " << s1.c_str() << "\n";
+   // cout << "s2: " << s2.c_str() << "\n";
+   // cout << "s3: " << s3.c_str() << "\n";
 
     // Поиск подстроки
-    std::cout << "Substring 'world' found in s3 at position: " << s3.find("world") << "\n";
+    //cout << "Substring 'best' found in s3 at position: "
+         //<< s3.find("best") << "\n";
 
     // Статический метод
-    std::cout << "Object count: " << MyString::getObjectCount() << "\n";
-
-    // Демонстрация вызова деструктора при выходе из области видимости
-    demoScope();
+   // cout << "Object count: " << MyString::getObjectCount() << "\n";
 
     return 0;
 }

@@ -1,69 +1,69 @@
 #include "MyString.h"
 #include <cstring> // strlen, strcpy, strcat, strstr
 
-int MyString::objectCount = 0;
+int MyString::object_count = 0;
 
 // === Конструктор по умолчанию ===
 MyString::MyString() {
     data = new char[1];
     data[0] = '\0';
     length = 0;
-    ++objectCount;
+    ++object_count;
 }
 
 // === Конструктор с параметром ===
-MyString::MyString(const char* s) {
-    if (!s) {
+MyString::MyString(const char* str) {
+    if (!str) {
         data = new char[1];
         data[0] = '\0';
         length = 0;
     } else {
-        length = std::strlen(s);
+        length = strlen(str);
         data = new char[length + 1];
-        std::strcpy(data, s);
+        strcpy(data, str);
     }
-    ++objectCount;
+    ++object_count;
 }
 
 // === Конструктор копирования ===
-MyString::MyString(const MyString& other) {
-    length = other.length;
+MyString::MyString(const MyString& otherStr) {
+    length = otherStr.length;
     data = new char[length + 1];
-    std::strcpy(data, other.data);
-    ++objectCount;
+    strcpy(data, otherStr.data);
+    ++object_count;
 }
 
 // === Оператор присваивания ===
-MyString& MyString::operator=(const MyString& other) {
-    if (this == &other) return *this;
+MyString& MyString::operator=(const MyString& otherStr) {
+    if (this == &otherStr) return *this;
     delete[] data;
-    length = other.length;
+    length = otherStr.length;
     data = new char[length + 1];
-    std::strcpy(data, other.data);
+    strcpy(data, otherStr.data);
     return *this;
 }
 
 // === Деструктор ===
 MyString::~MyString() {
     delete[] data;
-    --objectCount;
+    --object_count;
 }
 
 // === Изменение строки ===
-void MyString::setString(const char* s) {
+void MyString::setString(const char* str) {
     delete[] data;
-    if (!s) {
+    if (!str) {
         data = new char[1];
         data[0] = '\0';
         length = 0;
         return;
     }
-    length = std::strlen(s);
+    length = strlen(str);
     data = new char[length + 1];
-    std::strcpy(data, s);
+    strcpy(data, str);
 }
 
-// === Вернуть C-строку (char*) ===
+// === Вернуть C-строку ===
 char* MyString::c_str() const {
     return data;
 }
@@ -71,16 +71,16 @@ char* MyString::c_str() const {
 // === Вернуть копию строки ===
 char* MyString::getCopy() const {
     char* copy = new char[length + 1];
-    std::strcpy(copy, data);
+    strcpy(copy, data);
     return copy;
 }
 
-// === Объединение двух строк ===
-MyString MyString::concat(const MyString& other) const {
-    std::size_t newLen = length + other.length;
+// === Объединение строк ===
+MyString MyString::concat(const MyString& otherStr) const {
+    size_t newLen = length + otherStr.length;
     char* buffer = new char[newLen + 1];
-    std::strcpy(buffer, data);
-    std::strcat(buffer, other.data);
+    strcpy(buffer, data);
+    strcat(buffer, otherStr.data);
 
     MyString result(buffer);
     delete[] buffer;
@@ -90,22 +90,16 @@ MyString MyString::concat(const MyString& other) const {
 // === Поиск подстроки ===
 int MyString::find(const char* substr) const {
     if (!substr || substr[0] == '\0') return -1;
-    const char* pos = std::strstr(data, substr);
+    const char* pos = strstr(data, substr);
     return pos ? (int)(pos - data) : -1;
 }
 
 // === Длина строки ===
-std::size_t MyString::size() const {
+size_t MyString::size() const {
     return length;
 }
 
 // === Количество объектов ===
 int MyString::getObjectCount() {
-    return objectCount;
-}
-
-// === Перегрузка оператора << для cout ===
-std::ostream& operator<<(std::ostream& os, const MyString& str) {
-    os << str.data;
-    return os;
+    return object_count;
 }
